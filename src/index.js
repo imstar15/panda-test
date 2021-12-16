@@ -1,8 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Parse from 'parse';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import config from './config';
+
+const { serverURL, appId } = config.parse;
+Parse.serverURL = serverURL;
+Parse.initialize(appId);
 
 ReactDOM.render(
   <React.StrictMode>

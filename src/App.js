@@ -1,112 +1,69 @@
-import { web3FromAddress, web3Enable } from '@polkadot/extension-dapp';
-import { Button } from 'antd';
-import Parse from 'parse/dist/parse.min';
-import logo from './logo.svg';
+import { Layout, Menu, Breadcrumb } from 'antd';
+import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import './App.css';
-import config from './config';
-import polkadotApiHelper from './common/polkadotApiHelper';
+import TestAccount from './pages/TestAccount/TestAccount';
 
-Parse.initialize(config.parse.appId);
-Parse.serverURL = config.parse.serverURL;
+const { SubMenu } = Menu;
+const { Header, Content, Sider } = Layout;
 
 function App() {
-  const testParse = async () => {
-    const collectionName = 'Referral';
-    const Collection = Parse.Object.extend(collectionName);
-    const query = new Parse.Query(Collection);
-    const results = await query.find();
-    console.log("Successfully retrieved " + results.length + " records.");
-  }
-
-  const testPolkadot = async () => {
-    await web3Enable('oak-parse');
-
-    const account = '5GcD1vPdWzBd3VPTPgVFWL9K7b27A2tPYcVTJoGwKcLjdG5w';
-		const fundAmount = 100;
-
-		const injector = await web3FromAddress(account);
-		const polkadotApi = polkadotApiHelper.getApi();
-		// const extrinsic = api.tx.quadraticFunding.contribute(0, fundAmount * 10 ** 10);
-		const extrinsic = polkadotApi.tx.quadraticFunding.fund(fundAmount * 10 ** 10);
-
-		const signedExtrinsic = await extrinsic.signAsync(account, { signer: injector.signer });
-		console.log("txHex: ", signedExtrinsic.toHex());
-		console.log("txHash: ", signedExtrinsic.hash.toString());
-  }
-  
-  const testContribute = async () => {
-    await web3Enable('oak-parse');
-
-    const account = '5GcD1vPdWzBd3VPTPgVFWL9K7b27A2tPYcVTJoGwKcLjdG5w';
-		const fundAmount = 100;
-
-		const injector = await web3FromAddress(account);
-		const polkadotApi = polkadotApiHelper.getApi();
-		// const extrinsic = api.tx.quadraticFunding.contribute(0, fundAmount * 10 ** 10);
-		const extrinsic = polkadotApi.tx.quadraticFunding.fund(fundAmount * 10 ** 10);
-
-		const signedExtrinsic = await extrinsic.signAsync(account, { signer: injector.signer });
-    console.log("signedExtrinsic: ", signedExtrinsic);
-    console.log("signer: ", signedExtrinsic.signer.toString());
-		console.log("txHex: ", signedExtrinsic.toHex());
-		console.log("txHash: ", signedExtrinsic.hash.toString());
-
-    try {
-      const result = await Parse.Cloud.run("contribute", { "extrinsicHex": signedExtrinsic.toHex(), "chain": "Kusama" });
-      console.log('result: ', result);
-    } catch (error) {
-      console.log('error.code: ', error.code);
-      console.log('error.message: ', error.message);
-    }
-  }
-
-  const testCrowdloan = async () => {
-    await web3Enable('oak-parse');
-
-    const account = 'DrCFRy8rE75gGv7WydEtoGaL2AR6ccU3cJChdiaf3XUwSvH';
-		const fundAmount = 0.1;
-
-		const injector = await web3FromAddress(account);
-		const polkadotApi = await polkadotApiHelper.getKusamaApi();
-		const extrinsic = polkadotApi.tx.crowdloan.contribute(2016, fundAmount * 10 ** 12, null);
-		// const extrinsic = polkadotApi.tx.quadraticFunding.fund(fundAmount * 10 ** 10);
-
-		const signedExtrinsic = await extrinsic.signAsync(account, { signer: injector.signer });
-    console.log("signedExtrinsic: ", signedExtrinsic);
-    console.log("signer: ", signedExtrinsic.signer.toString());
-		console.log("txHex: ", signedExtrinsic.toHex());
-		console.log("txHash: ", signedExtrinsic.hash.toString());
-
-    try {
-      const result = await Parse.Cloud.run("contribute", { "extrinsicHex": signedExtrinsic.toHex(), "chain": "Kusama" });
-      console.log('result: ', result);
-    } catch (error) {
-      console.log('error.code: ', error.code);
-      console.log('error.message: ', error.message);
-    }
-  }
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <Button className="App-test-button" type="primary" onClick={testParse}>Test parse</Button>
-        <Button className="App-test-button" type="primary" onClick={testPolkadot}>Test Polkadot</Button>
-        <Button className="App-test-button" type="primary" onClick={testContribute}>Test Contribute</Button>
-        <Button className="App-test-button" type="primary" onClick={testCrowdloan}>Test crowdloan.contribute</Button>
-ain      </header>
-    </div>
+    <Layout>
+      <Header className="header">
+        <div className="logo" />
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+          <Menu.Item key="1">nav 1</Menu.Item>
+          <Menu.Item key="2">nav 2</Menu.Item>
+          <Menu.Item key="3">nav 3</Menu.Item>
+        </Menu>
+      </Header>
+      <Layout>
+        <Sider width={200} className="site-layout-background">
+          <Menu
+            mode="inline"
+            defaultSelectedKeys={['1']}
+            defaultOpenKeys={['sub1']}
+            style={{ height: '100%', borderRight: 0 }}
+          >
+            <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
+              <Menu.Item key="1">option1</Menu.Item>
+              <Menu.Item key="2">option2</Menu.Item>
+              <Menu.Item key="3">option3</Menu.Item>
+              <Menu.Item key="4">option4</Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
+              <Menu.Item key="5">option5</Menu.Item>
+              <Menu.Item key="6">option6</Menu.Item>
+              <Menu.Item key="7">option7</Menu.Item>
+              <Menu.Item key="8">option8</Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
+              <Menu.Item key="9">option9</Menu.Item>
+              <Menu.Item key="10">option10</Menu.Item>
+              <Menu.Item key="11">option11</Menu.Item>
+              <Menu.Item key="12">option12</Menu.Item>
+            </SubMenu>
+          </Menu>
+        </Sider>
+        <Layout style={{ padding: '0 24px 24px' }}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>List</Breadcrumb.Item>
+            <Breadcrumb.Item>App</Breadcrumb.Item>
+          </Breadcrumb>
+          <Content
+            className="site-layout-background"
+            style={{
+              padding: 24,
+              margin: 0,
+              minHeight: 280,
+            }}
+          >
+            <TestAccount />
+          </Content>
+        </Layout>
+      </Layout>
+    </Layout>
   );
 }
 
