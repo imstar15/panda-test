@@ -51,8 +51,39 @@ function App() {
 		console.log("txHex: ", signedExtrinsic.toHex());
 		console.log("txHash: ", signedExtrinsic.hash.toString());
 
-    const result = await Parse.Cloud.run("contribute", { "extrinsicHex": signedExtrinsic.toHex(), "chain": "Kusama" });
-    console.log('result: ', result);
+    try {
+      const result = await Parse.Cloud.run("contribute", { "extrinsicHex": signedExtrinsic.toHex(), "chain": "Kusama" });
+      console.log('result: ', result);
+    } catch (error) {
+      console.log('error.code: ', error.code);
+      console.log('error.message: ', error.message);
+    }
+  }
+
+  const testCrowdloan = async () => {
+    await web3Enable('oak-parse');
+
+    const account = 'DrCFRy8rE75gGv7WydEtoGaL2AR6ccU3cJChdiaf3XUwSvH';
+		const fundAmount = 0.1;
+
+		const injector = await web3FromAddress(account);
+		const polkadotApi = await polkadotApiHelper.getKusamaApi();
+		const extrinsic = polkadotApi.tx.crowdloan.contribute(2016, fundAmount * 10 ** 12, null);
+		// const extrinsic = polkadotApi.tx.quadraticFunding.fund(fundAmount * 10 ** 10);
+
+		const signedExtrinsic = await extrinsic.signAsync(account, { signer: injector.signer });
+    console.log("signedExtrinsic: ", signedExtrinsic);
+    console.log("signer: ", signedExtrinsic.signer.toString());
+		console.log("txHex: ", signedExtrinsic.toHex());
+		console.log("txHash: ", signedExtrinsic.hash.toString());
+
+    try {
+      const result = await Parse.Cloud.run("contribute", { "extrinsicHex": signedExtrinsic.toHex(), "chain": "Kusama" });
+      console.log('result: ', result);
+    } catch (error) {
+      console.log('error.code: ', error.code);
+      console.log('error.message: ', error.message);
+    }
   }
 
   return (
@@ -73,7 +104,8 @@ function App() {
         <Button className="App-test-button" type="primary" onClick={testParse}>Test parse</Button>
         <Button className="App-test-button" type="primary" onClick={testPolkadot}>Test Polkadot</Button>
         <Button className="App-test-button" type="primary" onClick={testContribute}>Test Contribute</Button>
-      </header>
+        <Button className="App-test-button" type="primary" onClick={testCrowdloan}>Test crowdloan.contribute</Button>
+ain      </header>
     </div>
   );
 }
