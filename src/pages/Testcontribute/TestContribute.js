@@ -74,7 +74,7 @@ const TestContribute = () => {
 		console.log("txHash: ", signedExtrinsic.hash.toString());
 
     try {
-      const result = await Parse.Cloud.run("contribute", { "extrinsicHex": signedExtrinsic.toHex(), "chain": "Kusama" });
+      const result = await Parse.Cloud.run("contribute", { "txHex": signedExtrinsic.toHex(), "chainName": "rococo-test", "referralCode": "chris_ref_code" });
       console.log('result: ', result);
     } catch (error) {
       console.log('error.code: ', error.code);
