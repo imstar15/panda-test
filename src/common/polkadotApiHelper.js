@@ -3,17 +3,18 @@ import { WsProvider, ApiPromise } from '@polkadot/api';
 
 class PolkadotApiHelper {
   constructor() {
-    // this.init();
     this.kusamaApi = null;
+    this.oakApi = null;
   }
 
-  init = async () => {
-    const { endpoint, types } = config.polkadot.oak;
-    const wsProvider = new WsProvider(endpoint);
-    this.api = await ApiPromise.create({ provider: wsProvider, types });
+  getOakApi = async () => {
+    if (!this.oakApi) {
+      const { endpoint, types } = config.polkadot.oak;
+      const wsProvider = new WsProvider(endpoint);
+      this.api = await ApiPromise.create({ provider: wsProvider, types });
+    }
+    return this.oakApi;
   }
-
-  getApi = () => this.api;
 
   getKusamaApi = async () => {
     if (!this.kusamaApi) {

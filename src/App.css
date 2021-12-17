@@ -16,3 +16,11 @@
 .site-layout-background {
   background: #fff;
 }
+
+.test-button {
+  margin-right: 10px;
+}
+
+.page-content {
+  background-color: #ccc;
+}

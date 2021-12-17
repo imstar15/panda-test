@@ -65,11 +65,11 @@ const TestAccount = () => {
   }
 
   return (
-    <>
-      <Button onClick={signIn}>Sign In</Button>
-      <Button onClick={() => {sign(randomStr)}}>Sign</Button>
-      <Button onClick={verify}>Verify</Button>
-    </>
+    <div className='TestAccount'>
+      <Button type="primary" className="test-button" onClick={signIn}>Sign In</Button>
+      <Button type="primary" className="test-button" onClick={() => {sign(randomStr)}}>Sign</Button>
+      <Button type="primary" className="test-button" onClick={verify}>Verify</Button>
+    </div>
   );
 }
 

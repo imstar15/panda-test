@@ -44,7 +44,7 @@ const config = {
       },
     },
     kusama: {
-      endpoint: 'wss://node-6877451467726147584.lh.onfinality.io/ws?apikey=7680e177-11f1-4ccc-9df7-855e349e2d99',
+      endpoint: 'wss://node-6874595606920531968.jm.onfinality.io/ws?apikey=626295b3-c67d-4a48-a2c0-04b5945d0768',
     },
   }
 };
