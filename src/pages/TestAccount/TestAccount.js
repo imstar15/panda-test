@@ -18,6 +18,12 @@ const TestAccount = () => {
     return signatureVerify(signedMessage, signature, hexPublicKey).isValid;
   };
 
+  const login = async () => {
+    const username = '4ZG5TNi@example.com';
+    const user = await Parse.User.logIn(username, username);
+    console.log(user);
+  }
+
   const sign = async (message) => {
     console.log('message: ', message);
     await web3Enable('oak-parse');
@@ -38,12 +44,13 @@ const TestAccount = () => {
     const username = email;
 
     // Get signin_message from backend
-    const { signin_message: signinMessage } = await Parse.Cloud.run("getSigninMessage", { username, account });
+    // const { signin_message: signinMessage } = await Parse.Cloud.run("getSigninMessage", { username, account });
+    const signinMessage = 'randomStr';
 
     // Sign In
     const user = new Parse.User();
     user.set("username", username);
-    user.set("password", randomString({length: 7}));
+    user.set("password", username);
     user.set("email", email);
     user.set("signedStr", await sign(signinMessage));
     try {
@@ -69,6 +76,7 @@ const TestAccount = () => {
       <Button type="primary" className="test-button" onClick={signIn}>Sign In</Button>
       <Button type="primary" className="test-button" onClick={() => {sign(randomStr)}}>Sign</Button>
       <Button type="primary" className="test-button" onClick={verify}>Verify</Button>
+      <Button type="primary" className="test-button" onClick={login}>Login</Button>
     </div>
   );
 }
