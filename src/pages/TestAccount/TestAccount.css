@@ -1,0 +1,7 @@
+.TestAccount {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+  font-size: calc(10px + 2vmin);
+}

@@ -1,5 +1,7 @@
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+import { Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import './App.css';
 import TestAccount from './pages/TestAccount/TestAccount';
 import TestContribute from './pages/Testcontribute/TestContribute';
@@ -26,11 +28,9 @@ function App() {
             defaultOpenKeys={['sub1']}
             style={{ height: '100%', borderRight: 0 }}
           >
-            <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-              <Menu.Item key="1">option1</Menu.Item>
-              <Menu.Item key="2">option2</Menu.Item>
-              <Menu.Item key="3">option3</Menu.Item>
-              <Menu.Item key="4">option4</Menu.Item>
+            <SubMenu key="sub1" icon={<UserOutlined />} title="Basic">
+              <Menu.Item key="1"><Link to="/expenses">Contribute</Link></Menu.Item>
+              <Menu.Item key="2"><Link to="/invoices">Account</Link></Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
               <Menu.Item key="5">option5</Menu.Item>
@@ -53,15 +53,17 @@ function App() {
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb>
           <Content
-            className="site-layout-background"
+            className="site-layout-background page-content"
             style={{
-              padding: 24,
               margin: 0,
               minHeight: 280,
             }}
           >
-            {/* <TestAccount /> */}
-            <TestContribute />
+            <Routes>
+              <Route path="/" element={<TestAccount />} />
+              <Route path="expenses" element={<TestContribute />} />
+              <Route path="invoices" element={<TestAccount />} />
+            </Routes>
           </Content>
         </Layout>
       </Layout>
