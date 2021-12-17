@@ -2,6 +2,7 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import './App.css';
 import TestAccount from './pages/TestAccount/TestAccount';
+import TestContribute from './pages/Testcontribute/TestContribute';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -59,7 +60,8 @@ function App() {
               minHeight: 280,
             }}
           >
-            <TestAccount />
+            {/* <TestAccount /> */}
+            <TestContribute />
           </Content>
         </Layout>
       </Layout>

@@ -44,7 +44,7 @@ const config = {
       },
     },
     kusama: {
-      endpoint: 'wss://kusama-rpc.polkadot.io',
+      endpoint: 'wss://node-6877451467726147584.lh.onfinality.io/ws?apikey=7680e177-11f1-4ccc-9df7-855e349e2d99',
     },
   }
 };
