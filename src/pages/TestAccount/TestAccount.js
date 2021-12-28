@@ -8,6 +8,7 @@ import randomString from 'random-string';
 
 const account = '5GcD1vPdWzBd3VPTPgVFWL9K7b27A2tPYcVTJoGwKcLjdG5w';
 const randomStr = 'randomStr';
+const password = 'OAKNetwork';
 
 const TestAccount = () => {
   let savedSignature = '';
@@ -19,9 +20,17 @@ const TestAccount = () => {
   };
 
   const login = async () => {
-    const username = '4ZG5TNi@example.com';
-    const user = await Parse.User.logIn(username, username);
-    console.log(user);
+    const username = '53d8NKF@example.com';
+    const signinMessage = getSigninMessage();
+    const signature = await sign(signinMessage);
+    const { sessionToken } = await Parse.Cloud.run("loginWithSignature", { username, signature });
+    const user = await Parse.User.become(sessionToken)
+    console.log('user: ', user);
+  }
+
+  const getSigninMessage = async () => {
+    const { signin_message } = await Parse.Cloud.run("getSigninMessage", {});
+    return signin_message;
   }
 
   const sign = async (message) => {
@@ -43,16 +52,11 @@ const TestAccount = () => {
     const email = `${randomString({length: 7})}@example.com`;
     const username = email;
 
-    // Get signin_message from backend
-    // const { signin_message: signinMessage } = await Parse.Cloud.run("getSigninMessage", { username, account });
-    const signinMessage = 'randomStr';
-
     // Sign In
     const user = new Parse.User();
     user.set("username", username);
-    user.set("password", username);
+    user.set("password", password);
     user.set("email", email);
-    user.set("signedStr", await sign(signinMessage));
     try {
       await user.signUp();
     } catch (error) {
@@ -77,6 +81,7 @@ const TestAccount = () => {
       <Button type="primary" className="test-button" onClick={() => {sign(randomStr)}}>Sign</Button>
       <Button type="primary" className="test-button" onClick={verify}>Verify</Button>
       <Button type="primary" className="test-button" onClick={login}>Login</Button>
+      <Button type="primary" className="test-button" onClick={getSigninMessage}>GetSigninMessage</Button>
     </div>
   );
 }
