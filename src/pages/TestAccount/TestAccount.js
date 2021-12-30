@@ -9,7 +9,8 @@ import './TestAccount.css';
 const account = '5GN8FRYnAC9teh7PW9FHdw4ADRxrUA2GMavkzE8hLDNWrcBM';
 const randomStr = 'randomStr';
 const password = 'OAKNetwork';
-const username = 'charles@oak.tech';
+const email = 'charles@oak.tech';
+const username = email;
 
 const TestAccount = () => {
   let savedSignature = '';
@@ -52,8 +53,7 @@ const TestAccount = () => {
     if (Parse.User.current()){
       await Parse.User.logOut();
     }
-    const email = 'charles@oak.tech';
-    const username = email;
+    
     const user = new Parse.User();
     user.set("username", username);
     user.set("password", password);
