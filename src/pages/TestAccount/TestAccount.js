@@ -1,14 +1,15 @@
 import { web3FromAddress, web3Enable } from '@polkadot/extension-dapp';
 import { cryptoWaitReady, decodeAddress, signatureVerify } from '@polkadot/util-crypto';
 import { u8aToHex, stringToHex } from '@polkadot/util';
-import './TestAccount.css';
 import Parse from 'parse';
 import { Button } from 'antd';
-import randomString from 'random-string';
 
-const account = '5GcD1vPdWzBd3VPTPgVFWL9K7b27A2tPYcVTJoGwKcLjdG5w';
+import './TestAccount.css';
+
+const account = '5GN8FRYnAC9teh7PW9FHdw4ADRxrUA2GMavkzE8hLDNWrcBM';
 const randomStr = 'randomStr';
 const password = 'OAKNetwork';
+const username = 'charles@oak.tech';
 
 const TestAccount = () => {
   let savedSignature = '';
@@ -20,16 +21,15 @@ const TestAccount = () => {
   };
 
   const login = async () => {
-    const username = '53d8NKF@example.com';
-    const signinMessage = getSigninMessage();
+    const signinMessage = getSigninMessage(username);
     const signature = await sign(signinMessage);
-    const { sessionToken } = await Parse.Cloud.run("loginWithSignature", { username, signature });
-    const user = await Parse.User.become(sessionToken)
-    console.log('user: ', user);
+    const result = await Parse.User.logIn(username, password, { installationId: JSON.stringify({ signature, address: account }) });
+    console.log('result: ', result);
   }
 
-  const getSigninMessage = async () => {
-    const { signin_message } = await Parse.Cloud.run("getSigninMessage", {});
+  const getSigninMessage = async (username) => {
+    const { signin_message } = await Parse.Cloud.run("getSigninMessage", { username });
+    console.log('getSigninMessage, signin_message: ', signin_message);
     return signin_message;
   }
 
@@ -48,11 +48,10 @@ const TestAccount = () => {
     return signature;
   }
 
-  const signIn = async () => { 
-    const email = `${randomString({length: 7})}@example.com`;
+  const signUp = async () => {
+    await Parse.User.logOut();
+    const email = 'charles@oak.tech';
     const username = email;
-
-    // Sign In
     const user = new Parse.User();
     user.set("username", username);
     user.set("password", password);
@@ -77,11 +76,11 @@ const TestAccount = () => {
 
   return (
     <div className='TestAccount'>
-      <Button type="primary" className="test-button" onClick={signIn}>Sign In</Button>
+      <Button type="primary" className="test-button" onClick={signUp}>Sign Up</Button>
       <Button type="primary" className="test-button" onClick={() => {sign(randomStr)}}>Sign</Button>
       <Button type="primary" className="test-button" onClick={verify}>Verify</Button>
       <Button type="primary" className="test-button" onClick={login}>Login</Button>
-      <Button type="primary" className="test-button" onClick={getSigninMessage}>GetSigninMessage</Button>
+      <Button type="primary" className="test-button" onClick={() => {getSigninMessage(username)}}>GetSigninMessage</Button>
     </div>
   );
 }
