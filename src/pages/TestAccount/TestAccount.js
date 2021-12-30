@@ -49,7 +49,9 @@ const TestAccount = () => {
   }
 
   const signUp = async () => {
-    await Parse.User.logOut();
+    if (Parse.User.current()){
+      await Parse.User.logOut();
+    }
     const email = 'charles@oak.tech';
     const username = email;
     const user = new Parse.User();
