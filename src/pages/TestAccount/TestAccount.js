@@ -76,11 +76,17 @@ const TestAccount = () => {
 
   return (
     <div className='TestAccount'>
-      <Button type="primary" className="test-button" onClick={signUp}>Sign Up</Button>
-      <Button type="primary" className="test-button" onClick={() => {sign(randomStr)}}>Sign</Button>
-      <Button type="primary" className="test-button" onClick={verify}>Verify</Button>
-      <Button type="primary" className="test-button" onClick={login}>Login</Button>
-      <Button type="primary" className="test-button" onClick={() => {getSigninMessage(username)}}>GetSigninMessage</Button>
+      Account:
+      <div className='row'>
+        <Button type="primary" className="test-button" onClick={signUp}>Sign Up</Button>
+        <Button type="primary" className="test-button" onClick={login}>Log In</Button>
+      </div>
+      Signature:
+      <div className='row'>
+        <Button type="primary" className="test-button" onClick={() => {sign(randomStr)}}>Sign</Button>
+        <Button type="primary" className="test-button" onClick={verify}>Verify</Button>
+        <Button type="primary" className="test-button" onClick={() => {getSigninMessage(username)}}>GetSigninMessage</Button>
+      </div>
     </div>
   );
 }
