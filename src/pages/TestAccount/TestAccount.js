@@ -9,7 +9,7 @@ import './TestAccount.css';
 const account = '5GN8FRYnAC9teh7PW9FHdw4ADRxrUA2GMavkzE8hLDNWrcBM';
 const randomStr = 'randomStr';
 const password = 'OAKNetwork';
-const email = 'charles1@oak.tech';
+const email = 'charles@oak.tech';
 const username = email;
 
 const TestAccount = () => {
@@ -25,7 +25,7 @@ const TestAccount = () => {
     const signinMessage = getSigninMessage(username);
     const signature = await sign(signinMessage);
     const result = await Parse.User.logIn(username, password, { installationId: JSON.stringify({ signature, address: account }) });
-    console.log('result: ', result);
+    console.log('Sign up successfully, result: ', result);
   }
 
   const getSigninMessage = async (username) => {
@@ -56,7 +56,7 @@ const TestAccount = () => {
 
   const signUp = async () => {
     if (Parse.User.current()){
-      await Parse.User.logOut();
+      await Parse.User.destroyAll();
     }
     
     const user = new Parse.User();
@@ -68,7 +68,7 @@ const TestAccount = () => {
     } catch (error) {
       console.log("Error: " + error.code + " " + error.message);
     }
-    console.log('user: ', user);
+    console.log('Sign up successfully, user: ', user);
   }
   
   const verify = async () => {
