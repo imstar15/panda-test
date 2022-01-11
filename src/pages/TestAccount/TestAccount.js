@@ -9,7 +9,7 @@ import './TestAccount.css';
 const account = '5GN8FRYnAC9teh7PW9FHdw4ADRxrUA2GMavkzE8hLDNWrcBM';
 const randomStr = 'randomStr';
 const password = 'OAKNetwork';
-const email = 'charles@oak.tech';
+const email = 'charles1@oak.tech';
 const username = email;
 
 const TestAccount = () => {
@@ -29,9 +29,14 @@ const TestAccount = () => {
   }
 
   const getSigninMessage = async (username) => {
-    const { signin_message } = await Parse.Cloud.run("getSigninMessage", { username });
-    console.log('getSigninMessage, signin_message: ', signin_message);
-    return signin_message;
+    try {
+      const { signin_message } = await Parse.Cloud.run("getSigninMessage", { username });
+      console.log('getSigninMessage, signin_message: ', signin_message);
+      return signin_message;
+    } catch (error) {
+      console.log('error: ', error);
+      console.log('code: ', error.code);
+    }
   }
 
   const sign = async (message) => {
