@@ -5,19 +5,23 @@ import Parse from 'parse';
 import './TestContribute.css';
 import polkadotApiHelper from '../../common/polkadotApiHelper';
 
+const account = '5GN8FRYnAC9teh7PW9FHdw4ADRxrUA2GMavkzE8hLDNWrcBM';
+
 const TestContribute = () => {
-  const testParse = async () => {
-    const collectionName = 'Referral';
-    const Collection = Parse.Object.extend(collectionName);
-    const query = new Parse.Query(Collection);
-    const results = await query.find();
-    console.log("Successfully retrieved " + results.length + " records.");
+
+  const checkReferralCode = async () => {
+    try {
+      const result = await Parse.Cloud.run("isReferralCodeValid", { code: 'REF_ABC', address: account });
+      console.log('result: ', result);
+    } catch (error) {
+      console.log('error.code: ', error.code);
+      console.log('error.message: ', error.message);
+    }
   }
 
   const testCrowdloan = async () => {
     await web3Enable('oak-parse');
 
-    const account = '5GN8FRYnAC9teh7PW9FHdw4ADRxrUA2GMavkzE8hLDNWrcBM';
     const fundAmount = 5;
 
     const injector = await web3FromAddress(account);
@@ -43,7 +47,7 @@ const TestContribute = () => {
     <div className="TestContribute">
       <header className="TestContribute-header">
         <Button className="test-button" type="primary" onClick={testCrowdloan}>Test crowdloan.contribute</Button>
-        <Button className="test-button" type="primary" onClick={testParse}>Test parse</Button>
+        <Button className="test-button" type="primary" onClick={checkReferralCode}>Check ReferralCode</Button>
       </header>
     </div>
   );
