@@ -4,6 +4,7 @@ import { WsProvider, ApiPromise } from '@polkadot/api';
 class PolkadotApiHelper {
   constructor() {
     this.kusamaApi = null;
+    this.bifrostApi = null;
     this.oakApi = null;
   }
 
@@ -23,6 +24,15 @@ class PolkadotApiHelper {
       this.kusamaApi = await ApiPromise.create({ provider: wsProvider });
     }
     return this.kusamaApi;
+  }
+
+  getBifrostApi = async () => {
+    if (!this.bifrostApi) {
+      const { endpoint } = config.polkadot.bifrost;
+      const wsProvider = new WsProvider(endpoint);
+      this.bifrostApi = await ApiPromise.create({ provider: wsProvider });
+    }
+    return this.bifrostApi;
   }
 }
 
