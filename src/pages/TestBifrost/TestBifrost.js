@@ -1,5 +1,6 @@
 import { web3FromAddress, web3Enable } from '@polkadot/extension-dapp';
-import { Keyring } from '@polkadot/keyring';
+import { u8aToHex } from '@polkadot/util';
+import { decodeAddress } from '@polkadot/util-crypto';
 import { Button } from 'antd';
 import Parse from 'parse';
 // import logo from '../../logo.svg';
@@ -43,7 +44,7 @@ const TestBifrost = () => {
                 X1: {
                   AccountId32: {
                     network: 'Any',
-                    id: account,
+                    id: u8aToHex(decodeAddress(account)),
                   },
                 },
               },
