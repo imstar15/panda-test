@@ -44,7 +44,10 @@ const config = {
       },
     },
     kusama: {
-      endpoint: 'wss://node-6885733281073889280.jm.onfinality.io/ws?apikey=e99d53fb-7158-41e5-950b-e8e0bb7ac4e2',
+      endpoint: 'wss://kusama-rpc.devnet.liebi.com/ws',
+    },
+    bifrost: {
+      endpoint: 'wss://bifrost-rpc.devnet.liebi.com/ws',
     },
   }
 };

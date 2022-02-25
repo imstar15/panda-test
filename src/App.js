@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import './App.css';
 import TestAccount from './pages/TestAccount/TestAccount';
 import TestContribute from './pages/Testcontribute/TestContribute';
+import TestBifrost from './pages/TestBifrost/TestBifrost';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -31,6 +32,7 @@ function App() {
             <SubMenu key="sub1" icon={<UserOutlined />} title="Basic">
               <Menu.Item key="1"><Link to="/expenses">Contribute</Link></Menu.Item>
               <Menu.Item key="2"><Link to="/invoices">Account</Link></Menu.Item>
+              <Menu.Item key="3"><Link to="/bifrost">Bifrost</Link></Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
               <Menu.Item key="5">option5</Menu.Item>
@@ -63,6 +65,7 @@ function App() {
               <Route path="/" element={<TestAccount />} />
               <Route path="expenses" element={<TestContribute />} />
               <Route path="invoices" element={<TestAccount />} />
+              <Route path="bifrost" element={<TestBifrost />} />
             </Routes>
           </Content>
         </Layout>
