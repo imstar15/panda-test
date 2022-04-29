@@ -6,6 +6,7 @@ import './App.css';
 import TestAccount from './pages/TestAccount/TestAccount';
 import TestContribute from './pages/Testcontribute/TestContribute';
 import TestBifrost from './pages/TestBifrost/TestBifrost';
+import TestOak from './pages/TestOak/TestOak';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -19,6 +20,7 @@ function App() {
           <Menu.Item key="1">nav 1</Menu.Item>
           <Menu.Item key="2">nav 2</Menu.Item>
           <Menu.Item key="3">nav 3</Menu.Item>
+          <Menu.Item key="4">nav 4</Menu.Item>
         </Menu>
       </Header>
       <Layout>
@@ -33,6 +35,7 @@ function App() {
               <Menu.Item key="1"><Link to="/expenses">Contribute</Link></Menu.Item>
               <Menu.Item key="2"><Link to="/invoices">Account</Link></Menu.Item>
               <Menu.Item key="3"><Link to="/bifrost">Bifrost</Link></Menu.Item>
+              <Menu.Item key="4"><Link to="/oak">Oak</Link></Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
               <Menu.Item key="5">option5</Menu.Item>
@@ -66,6 +69,7 @@ function App() {
               <Route path="expenses" element={<TestContribute />} />
               <Route path="invoices" element={<TestAccount />} />
               <Route path="bifrost" element={<TestBifrost />} />
+              <Route path="oak" element={<TestOak />} />
             </Routes>
           </Content>
         </Layout>
