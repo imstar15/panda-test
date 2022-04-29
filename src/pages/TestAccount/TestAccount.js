@@ -8,7 +8,7 @@ import './TestAccount.css';
 
 const account = 'FMWqLVN8Eh2Yt1a5Kgp2haXXoJkXVicBtoLzxw6nfqvGebv';
 const password = 'OAKNetwork';
-const email = 'charles@oak.tech';
+const email = 'justin@oak.tech';
 const username = email;
 
 const TestAccount = () => {

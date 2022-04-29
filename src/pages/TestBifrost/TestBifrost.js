@@ -78,7 +78,7 @@ const TestBifrost = () => {
         console.log("txHex: ", signedExtrinsic.toHex());
         console.log("txHash: ", signedExtrinsic.hash.toString());
 
-        const result = await Parse.Cloud.run("sendKSMtoBifrost", { "txHex": signedExtrinsic.toHex(), "chainName": "rococo-test", "referralCode": "chris_ref_code" });
+        const result = await Parse.Cloud.run("sendKSMtoBifrost", { "txHex": signedExtrinsic.toHex(), "chainName": "kusama-test", "referralCode": "chris_ref_code" });
         console.log('result: ', result);
       } catch (error) {
         console.log('swapKSMforBNC', 'Transaction rejected by blockchain', error.message);

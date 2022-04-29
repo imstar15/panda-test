@@ -24,11 +24,11 @@ const TestContribute = () => {
 
     const injector = await web3FromAddress(account);
     const polkadotApi = await polkadotApiHelper.getKusamaApi();
-    const extrinsic = polkadotApi.tx.crowdloan.contribute(2001, fundAmount, null);
+    const extrinsic = polkadotApi.tx.crowdloan.contribute(2090, fundAmount, null);
 
     const signedExtrinsic = await extrinsic.signAsync(account, { signer: injector.signer });
 
-    const contribution = { "txHex": signedExtrinsic.toHex(), "chainName": "rococo-test", "referralCode": referralCode };
+    const contribution = { "txHex": signedExtrinsic.toHex(), "chainName": "kusama-test", "referralCode": referralCode };
     console.log("signedExtrinsic: ", signedExtrinsic);
     console.log("signer: ", signedExtrinsic.signer.toString());
     console.log("txHex: ", signedExtrinsic.toHex());
